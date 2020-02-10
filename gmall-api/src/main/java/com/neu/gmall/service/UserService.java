@@ -1,4 +1,4 @@
-package com.neu.gmall.user.service;
+package com.neu.gmall.service;
 
 
 import com.neu.gmall.bean.UmsMember;

@@ -1,7 +1,8 @@
 package com.neu.gmall.user.service.impl;
 
-import com.neu.gmall.user.bean.UmsMember;
-import com.neu.gmall.user.bean.UmsMemberReceiveAddress;
+
+import com.neu.gmall.bean.UmsMember;
+import com.neu.gmall.bean.UmsMemberReceiveAddress;
 import com.neu.gmall.user.mapper.UmsMemberReceiveAddressMapper;
 import com.neu.gmall.user.mapper.UserMapper;
 import com.neu.gmall.user.service.UserService;

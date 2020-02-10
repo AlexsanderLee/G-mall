@@ -1,4 +1,4 @@
-package com.neu.gmall.user.bean;
+package com.neu.gmall.bean;
 
 import javax.persistence.Id;
 

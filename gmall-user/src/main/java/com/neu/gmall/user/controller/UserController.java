@@ -1,7 +1,8 @@
 package com.neu.gmall.user.controller;
 
-import com.neu.gmall.user.bean.UmsMember;
-import com.neu.gmall.user.bean.UmsMemberReceiveAddress;
+
+import com.neu.gmall.bean.UmsMember;
+import com.neu.gmall.bean.UmsMemberReceiveAddress;
 import com.neu.gmall.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,7 +37,7 @@ public class UserController {
     //@RequestBody输入可以为json格式
     @RequestMapping("getUmsMemberReceiveAddressById")
     @ResponseBody
-    public List<UmsMemberReceiveAddress> getUmsMemberReceiveAddressById( String memberId){
+    public List<UmsMemberReceiveAddress> getUmsMemberReceiveAddressById(String memberId){
         return userService.getUmsMemberReceiveAddressById(memberId);
     }
 }
