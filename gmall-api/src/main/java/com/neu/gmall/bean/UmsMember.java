@@ -3,9 +3,10 @@ package com.neu.gmall.bean;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
-public class UmsMember {
+public class UmsMember implements Serializable {
     //使用通用mapper需要配置主键
     //主键返回策略,不插入，主键不返回
     @Id
