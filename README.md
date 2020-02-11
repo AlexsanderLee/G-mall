@@ -5,6 +5,10 @@ gmall-user-service用户服务service层端口号：8070
 
 gmall-user-web用户服务web层端口号：8080
 
+gmall-manage-service用户服务service层端口号：8071
+
+gmall-manage-web用户服务web层端口号：8081
+
 1、创建parent和api包；
 
 parent中的pom.xml说明：dependencyManagement里只是声明依赖，并不实现引入，因此子项目需要显示的声明需要用的依赖。如果不在子项目中声明依赖，是不会从父项目中继承下来的；只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取自父pom;另外如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。
@@ -24,7 +28,9 @@ Mybatis、mysql、redis
 加入commonUtil
 ```
 
-3、将user项目拆分成user-service和user-web
+3、将user项目拆分成user-service和user-web，后续开发将每个部分的代码拆分为service和web部分。service层为service实现类和mapper接口。web层为controller。
 
 4、在common-util中引入dubbo框架(web和service层将来都需要使用dubbo进行通讯)
+
+5、前后端分离开发，通过运行前端网页，查找需要实现的控制类（F12，查找需要实现的方法和参数，在后端web层实现功能）。
 

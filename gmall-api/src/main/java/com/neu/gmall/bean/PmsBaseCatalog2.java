@@ -1,11 +1,33 @@
 package com.neu.gmall.bean;
 
-public class PmsBaseCatalog2 {
+import com.sun.javafx.beans.IDProperty;
+
+import javax.persistence.*;
+
+
+import java.io.Serializable;
+import java.util.List;
+
+public class PmsBaseCatalog2 implements Serializable {
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @Column
     private String name;
-
+    @Column
     private Integer catalog1Id;
+
+    @Transient
+    private List<PmsBaseCatalog3> catalog3List;
+
+    public List<PmsBaseCatalog3> getCatalog3List() {
+        return catalog3List;
+    }
+
+    public void setCatalog3List(List<PmsBaseCatalog3> catalog3List) {
+        this.catalog3List = catalog3List;
+    }
 
     public Integer getId() {
         return id;
