@@ -15,6 +15,15 @@ public class PmsBaseAttrInfo implements Serializable {
     private Long catalog3Id;
     @Column
     private String isEnabled;
+
+    public List<PmsBaseAttrValue> getAttrValueList() {
+        return attrValueList;
+    }
+
+    public void setAttrValueList(List<PmsBaseAttrValue> attrValueList) {
+        this.attrValueList = attrValueList;
+    }
+
     @Transient
     List<PmsBaseAttrValue> attrValueList;
     public Long getId() {

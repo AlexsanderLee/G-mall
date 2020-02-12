@@ -1,12 +1,18 @@
 package com.neu.gmall.bean;
 
-public class PmsProductImage {
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
+
+public class PmsProductImage implements Serializable {
+    @Column
+    @Id
     private Long id;
-
+    @Column
     private Long productId;
-
+    @Column
     private String imgName;
-
+    @Column
     private String imgUrl;
 
     public Long getId() {

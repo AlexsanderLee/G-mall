@@ -1,14 +1,43 @@
 package com.neu.gmall.bean;
 
-public class PmsProductInfo {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+public class PmsProductInfo implements Serializable {
+    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column
     private String productName;
-
+    @Column
     private String description;
-
+    @Column
     private Long catalog3Id;
 
+
+    public List<PmsProductImage> getPmsProductImageList() {
+        return pmsProductImageList;
+    }
+
+    public void setPmsProductImageList(List<PmsProductImage> pmsProductImageList) {
+        this.pmsProductImageList = pmsProductImageList;
+    }
+
+    public List<PmsProductSaleAttr> getSpuSaleAttrList() {
+        return spuSaleAttrList;
+    }
+
+    public void setSpuSaleAttrList(List<PmsProductSaleAttr> spuSaleAttrList) {
+        this.spuSaleAttrList = spuSaleAttrList;
+    }
+
+    @Transient
+    private List<PmsProductSaleAttr> spuSaleAttrList;
+    @Transient
+    private List<PmsProductImage> pmsProductImageList;
+    @Column
     private Long tmId;
 
     public Long getId() {

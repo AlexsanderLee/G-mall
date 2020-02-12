@@ -1,23 +1,64 @@
 package com.neu.gmall.bean;
 
-public class PmsSkuInfo {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+public class PmsSkuInfo implements Serializable {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column
     private Long id;
-
+    @Column
     private Long productId;
-
+    @Column
     private Double price;
-
+    @Column
     private String skuName;
-
+    @Column
     private String skuDesc;
-
+    @Column
     private Double weight;
-
+    @Column
     private Long tmId;
-
+    @Column
     private Long catalog3Id;
-
+    @Column
     private String skuDefaultImg;
+
+
+    @Transient
+    List<PmsSkuImage> pmsSkuImageList;
+
+    @Transient
+    List<PmsSkuAttrValue> pmsSkuAttrValueList;
+
+    @Transient
+    List<PmsSkuSaleAttrValue> pmsSkuSaleAttrValueList;
+
+    public List<PmsSkuImage> getPmsSkuImageList() {
+        return pmsSkuImageList;
+    }
+
+    public void setPmsSkuImageList(List<PmsSkuImage> pmsSkuImageList) {
+        this.pmsSkuImageList = pmsSkuImageList;
+    }
+
+    public List<PmsSkuAttrValue> getPmsSkuAttrValueList() {
+        return pmsSkuAttrValueList;
+    }
+
+    public void setPmsSkuAttrValueList(List<PmsSkuAttrValue> pmsSkuAttrValueList) {
+        this.pmsSkuAttrValueList = pmsSkuAttrValueList;
+    }
+
+    public List<PmsSkuSaleAttrValue> getPmsSkuSaleAttrValueList() {
+        return pmsSkuSaleAttrValueList;
+    }
+
+    public void setPmsSkuSaleAttrValueList(List<PmsSkuSaleAttrValue> pmsSkuSaleAttrValueList) {
+        this.pmsSkuSaleAttrValueList = pmsSkuSaleAttrValueList;
+    }
 
     public Long getId() {
         return id;

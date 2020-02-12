@@ -1,6 +1,10 @@
 package com.neu.gmall.bean;
 
-public class PmsBrand {
+import javax.persistence.Id;
+import java.io.Serializable;
+
+public class PmsBrand implements Serializable {
+    @Id
     private Long id;
 
     private String name;

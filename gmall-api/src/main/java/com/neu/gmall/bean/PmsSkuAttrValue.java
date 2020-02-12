@@ -1,12 +1,18 @@
 package com.neu.gmall.bean;
 
-public class PmsSkuAttrValue {
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
+
+public class PmsSkuAttrValue implements Serializable {
+    @Id
+    @Column
     private Long id;
-
+    @Column
     private Long attrId;
-
+    @Column
     private Long valueId;
-
+    @Column
     private Long skuId;
 
     public Long getId() {

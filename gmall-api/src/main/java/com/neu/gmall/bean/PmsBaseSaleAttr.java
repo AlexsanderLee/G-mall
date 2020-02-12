@@ -1,8 +1,14 @@
 package com.neu.gmall.bean;
 
-public class PmsBaseSaleAttr {
-    private Long id;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
+public class PmsBaseSaleAttr implements Serializable {
+    @Id
+    @Column
+    private Long id;
+    @Column
     private String name;
 
     public Long getId() {

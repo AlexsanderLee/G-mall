@@ -1,14 +1,31 @@
 package com.neu.gmall.bean;
 
-public class PmsBaseAttrValue {
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.io.Serializable;
+
+public class PmsBaseAttrValue implements Serializable {
+    @Id
+    @Column
     private Long id;
-
+    @Column
     private String valueName;
-
+    @Column
     private Long attrId;
-
+    @Column
     private String isEnabled;
 
+    public String getUrlParam() {
+        return urlParam;
+    }
+
+    public void setUrlParam(String urlParam) {
+        this.urlParam = urlParam;
+    }
+
+    @Transient
+    private String urlParam;
     public Long getId() {
         return id;
     }
