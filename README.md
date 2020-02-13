@@ -34,3 +34,4 @@ Mybatis、mysql、redis
 
 5、前后端分离开发，通过运行前端网页，查找需要实现的控制类（F12，查找需要实现的方法和参数，在后端web层实现功能）。
 
+6、分布式文件系统（nginx+fastdfs,配置Linux后，需要下载fastdfs-client-java源码，导入项目）。

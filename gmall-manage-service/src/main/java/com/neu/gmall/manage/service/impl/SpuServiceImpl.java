@@ -1,15 +1,9 @@
 package com.neu.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.neu.gmall.bean.PmsBaseSaleAttr;
-import com.neu.gmall.bean.PmsProductInfo;
-import com.neu.gmall.bean.PmsProductSaleAttr;
-import com.neu.gmall.bean.PmsProductSaleAttrValue;
-import com.neu.gmall.manage.mapper.PmsProductSaleAttrValueMapper;
+import com.neu.gmall.bean.*;
+import com.neu.gmall.manage.mapper.*;
 import com.neu.gmall.service.SpuService;
-import com.neu.gmall.manage.mapper.PmsBaseSaleAttrMapper;
-import com.neu.gmall.manage.mapper.PmsProductInfoMapper;
-import com.neu.gmall.manage.mapper.PmsProductSaleAttrMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
@@ -28,6 +22,9 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private PmsProductSaleAttrValueMapper pmsProductSaleAttrValueMapper;
+
+    @Autowired
+    private PmsProductImageMapper pmsProductImageMapper;
 
     @Override
     public List<PmsProductInfo> getSpuList(String catalog3Id){
@@ -48,6 +45,15 @@ public class SpuServiceImpl implements SpuService {
     public void saveSpuInfo(PmsProductInfo pmsProductInfo){
         pmsProductInfoMapper.insertSelective(pmsProductInfo);
         List<PmsProductSaleAttr> spuSaleAttrList = pmsProductInfo.getSpuSaleAttrList();
+        //保存上传图片的信息：spuImageList
+        for(PmsProductImage pmsProductImage:pmsProductInfo.getSpuImageList()){
+            PmsProductImage p =new PmsProductImage();
+            p.setImgName(pmsProductImage.getImgName());
+            p.setImgUrl(pmsProductImage.getImgUrl());
+            p.setProductId(pmsProductInfo.getId());
+            pmsProductImageMapper.insertSelective(p);
+        }
+
         //添加商品销售属性值:多个销售属性，每个属性有不同值
         for(PmsProductSaleAttr pmsProductSaleAttr:spuSaleAttrList){
             PmsProductSaleAttr temp = new PmsProductSaleAttr();
@@ -65,6 +71,27 @@ public class SpuServiceImpl implements SpuService {
             }
 
         }
+    }
+    @Override
+    public List<PmsProductSaleAttr> getSpuSaleAttrList(String spuId){
+        PmsProductSaleAttr pmsProductSaleAttr =new PmsProductSaleAttr();
+        pmsProductSaleAttr.setProductId(Long.parseLong(spuId));
+        List<PmsProductSaleAttr> select = pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
+        for(PmsProductSaleAttr p:select){
+            PmsProductSaleAttrValue v = new PmsProductSaleAttrValue();
+            v.setProductId(p.getProductId());
+            //此处为销售属性的id，不为主键，理清表的关系
+            v.setSaleAttrId(p.getSaleAttrId());
+            p.setSpuSaleAttrValueList(pmsProductSaleAttrValueMapper.select(v));
+        }
+        return select;
+    }
 
+    @Override
+    public List<PmsProductImage> getSpuImageList(String spuId){
+        PmsProductImage pmsProductImage = new PmsProductImage();
+        pmsProductImage.setProductId(Long.parseLong(spuId));
+        List<PmsProductImage> pmsProductImages = pmsProductImageMapper.select(pmsProductImage);
+        return pmsProductImages;
     }
 }

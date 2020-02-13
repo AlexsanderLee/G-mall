@@ -17,14 +17,6 @@ public class PmsProductInfo implements Serializable {
     private Long catalog3Id;
 
 
-    public List<PmsProductImage> getPmsProductImageList() {
-        return pmsProductImageList;
-    }
-
-    public void setPmsProductImageList(List<PmsProductImage> pmsProductImageList) {
-        this.pmsProductImageList = pmsProductImageList;
-    }
-
     public List<PmsProductSaleAttr> getSpuSaleAttrList() {
         return spuSaleAttrList;
     }
@@ -35,8 +27,17 @@ public class PmsProductInfo implements Serializable {
 
     @Transient
     private List<PmsProductSaleAttr> spuSaleAttrList;
+
+    public List<PmsProductImage> getSpuImageList() {
+        return spuImageList;
+    }
+
+    public void setSpuImageList(List<PmsProductImage> spuImageList) {
+        this.spuImageList = spuImageList;
+    }
+
     @Transient
-    private List<PmsProductImage> pmsProductImageList;
+    private List<PmsProductImage> spuImageList;
     @Column
     private Long tmId;
 

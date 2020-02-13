@@ -3,6 +3,8 @@ package com.neu.gmall.manage.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.neu.gmall.bean.PmsBaseAttrInfo;
 import com.neu.gmall.bean.PmsBaseAttrValue;
+import com.neu.gmall.bean.PmsBaseSaleAttr;
+import com.neu.gmall.bean.PmsSkuInfo;
 import com.neu.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.neu.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.neu.gmall.service.AttrService;
@@ -25,6 +27,11 @@ public class AttrServiceImpl implements AttrService {
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(Long.parseLong(catalog3Id));
         List<PmsBaseAttrInfo> select = attrInfoMapper.select(pmsBaseAttrInfo);
+        for(PmsBaseAttrInfo p : select){
+            PmsBaseAttrValue v = new PmsBaseAttrValue();
+            v.setAttrId(p.getId());
+            p.setAttrValueList(attrValueMapper.select(v));
+        }
         return  select;
     }
 
@@ -63,6 +70,7 @@ public class AttrServiceImpl implements AttrService {
             // 删除后，将新的属性值插入
             List<PmsBaseAttrValue> attrValueList = pmsBaseAttrInfo.getAttrValueList();
             for (PmsBaseAttrValue pmsBaseAttrValue : attrValueList) {
+                pmsBaseAttrValue.setAttrId(pmsBaseAttrInfo.getId());
                 attrValueMapper.insertSelective(pmsBaseAttrValue);
             }
         }

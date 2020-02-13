@@ -1,7 +1,9 @@
 package com.neu.gmall.service;
 
 import com.neu.gmall.bean.PmsBaseSaleAttr;
+import com.neu.gmall.bean.PmsProductImage;
 import com.neu.gmall.bean.PmsProductInfo;
+import com.neu.gmall.bean.PmsProductSaleAttr;
 
 import java.util.List;
 
@@ -11,4 +13,8 @@ public interface SpuService {
     List<PmsBaseSaleAttr> getSpuProductSaleAttr();
 
     void saveSpuInfo(PmsProductInfo pmsProductInfo);
+
+    List<PmsProductSaleAttr> getSpuSaleAttrList(String spuId);
+
+    List<PmsProductImage> getSpuImageList(String spuId);
 }
