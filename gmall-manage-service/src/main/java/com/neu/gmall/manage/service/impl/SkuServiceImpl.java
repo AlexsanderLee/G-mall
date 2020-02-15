@@ -9,6 +9,7 @@ import com.neu.gmall.manage.mapper.PmsSkuInfoMapper;
 import com.neu.gmall.manage.mapper.PmsSkuSaleAttrValueMapper;
 import com.neu.gmall.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -51,6 +52,44 @@ public class SkuServiceImpl implements SkuService {
             pmsSkuSaleAttrValueMapper.insertSelective(pmsSkuSaleAttrValue);
         }
 
+    }
+
+    //不采用缓存
+    public PmsSkuInfo getSkuByIdFromDB(String skuId){
+        PmsSkuInfo skuInfoList=null;
+        Long id =Long.parseLong(skuId);
+        try {
+            skuInfoList = pmsSkuInfoMapper.selectByPrimaryKey(id);
+            PmsSkuImage pmsSkuImage = new PmsSkuImage();
+            pmsSkuImage.setSkuId(id);
+            List<PmsSkuImage> pmsSkuImages = pmsSkuImageMapper.select(pmsSkuImage);
+            skuInfoList.setSkuImageList(pmsSkuImages);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return skuInfoList;
+    }
+
+    @Override
+    public PmsSkuInfo getSkuById(String skuId){
+        PmsSkuInfo skuInfoList=null;
+        Long id =Long.parseLong(skuId);
+
+        //连接缓存
+
+        //查询缓存
+
+        //缓存没有则查询DB
+
+
+        return skuInfoList;
+    }
+
+    @Override
+    public List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(Long productId){
+        List<PmsSkuInfo> pmsSkuInfoList=pmsSkuInfoMapper.selectSkuSaleAttrValueListBySpu(productId);
+        return pmsSkuInfoList;
     }
 
 

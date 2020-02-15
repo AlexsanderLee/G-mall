@@ -9,4 +9,8 @@ public interface SkuService {
 
 
     void saveSkuInfo(PmsSkuInfo pmsSkuInfo);
+
+    PmsSkuInfo getSkuById(String skuId);
+
+    List<PmsSkuInfo> getSkuSaleAttrValueListBySpu(Long productId);
 }
