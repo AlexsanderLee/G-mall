@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.neu.gmall</groupId>
-    <artifactId>gmall-common-util</artifactId>
+    <artifactId>gmall-common-com.neu.gmall.util</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
