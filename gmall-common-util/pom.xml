@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.neu.gmall</groupId>
-    <artifactId>gmall-common-com.neu.gmall.util</artifactId>
+    <artifactId>gmall-common-util</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -72,6 +72,8 @@
             <groupId>com.gitee.reger</groupId>
             <artifactId>spring-boot-starter-dubbo</artifactId>
         </dependency>
+
+
 
     </dependencies>
 
