@@ -8,11 +8,13 @@ import com.neu.gmall.bean.PmsSkuInfo;
 import com.neu.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.neu.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.neu.gmall.service.AttrService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AttrServiceImpl implements AttrService {
@@ -22,6 +24,7 @@ public class AttrServiceImpl implements AttrService {
 
     @Autowired
     private PmsBaseAttrValueMapper attrValueMapper;
+
 
     public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id){
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
@@ -86,5 +89,14 @@ public class AttrServiceImpl implements AttrService {
         pmsBaseAttrValue.setAttrId(Long.parseLong(attrId));
         List<PmsBaseAttrValue> select = attrValueMapper.select(pmsBaseAttrValue);
         return  select;
+    }
+
+    //通过属性id查询属性列表
+    @Override
+    public List<PmsBaseAttrInfo> getAttrValueListByValueId(Set<Long> valueIdSet) {
+        //拼接字符串
+        String valueIdStr = StringUtils.join(valueIdSet,",");
+        List<PmsBaseAttrInfo>attrInfos=attrInfoMapper.selectAttrValueListByValueId(valueIdStr);
+        return attrInfos;
     }
 }

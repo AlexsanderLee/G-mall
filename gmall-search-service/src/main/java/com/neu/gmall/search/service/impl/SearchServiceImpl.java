@@ -16,11 +16,15 @@ import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.index.query.TermsQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.highlight.HighlightBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class SearchServiceImpl implements SearchService {
 
@@ -31,7 +35,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<PmsSearchSkuInfo> list(PmsSearchParam pmsSearchParam) {
         String dsl = getDSL(pmsSearchParam);
-        //System.out.println(dsl);
+        System.out.println(dsl);
         if(StringUtils.isBlank(dsl)) return null;
         Search search = new Search.Builder(dsl).addIndex(Constants.index).addType(Constants.type).build();
         SearchResult result=null;
@@ -45,14 +49,26 @@ public class SearchServiceImpl implements SearchService {
         List<PmsSearchSkuInfo> pmsSearchSkuInfoList = new ArrayList<>();
         for(SearchResult.Hit<PmsSearchSkuInfo, Void> hit:hits){
             PmsSearchSkuInfo source = hit.source;
+            //高亮
+            Map<String, List<String>> highlight = hit.highlight;
+            if(highlight!=null){
+                String skuName = highlight.get(Constants.skuName).get(0);
+                source.setSkuName(skuName);
+            }
             pmsSearchSkuInfoList.add(source);
         }
+
+
+
         return pmsSearchSkuInfoList;
     }
 
     //获得查询es的DSL语句
     public String getDSL(PmsSearchParam pmsSearchParam){
-        String catalog3Id = String.valueOf(pmsSearchParam.getCatalog3Id());
+        //Long转化为String , null 会变为“null”
+        String catalog3Id = null;
+        if(pmsSearchParam.getCatalog3Id()!=null)
+           catalog3Id = String.valueOf(pmsSearchParam.getCatalog3Id());
         String keyword = pmsSearchParam.getKeyword();
         Long[] valueId1 = pmsSearchParam.getValueId();
         String[] valueId = null;
@@ -67,7 +83,7 @@ public class SearchServiceImpl implements SearchService {
         //bool
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
         //filter
-        if(StringUtils.isNotBlank(catalog3Id)){
+        if(StringUtils.isNotBlank(catalog3Id) && catalog3Id!=null){
             TermQueryBuilder termsQueryBuilder = new TermQueryBuilder(Constants.catalog3Id,catalog3Id);
             boolQueryBuilder.filter(termsQueryBuilder);
         }
@@ -86,12 +102,18 @@ public class SearchServiceImpl implements SearchService {
 
         searchSourceBuilder.query(boolQueryBuilder);
 
+        //highlight
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        highlightBuilder.preTags("<span style='color:red;'>");
+        highlightBuilder.field(Constants.skuName);
+        highlightBuilder.postTags("</span>");
+        searchSourceBuilder.highlight(highlightBuilder);
+        // sort
+        searchSourceBuilder.sort(Constants.id, SortOrder.DESC);
         //from
         searchSourceBuilder.from(0);
         //size
-        searchSourceBuilder.size(20);
-        //highlight
-        searchSourceBuilder.highlight(null);
+        searchSourceBuilder.size(40);
 
         return searchSourceBuilder.toString();
     }
