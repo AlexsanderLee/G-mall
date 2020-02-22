@@ -15,7 +15,8 @@ public class OmsCartItem implements Serializable{
     private Long memberId;
     private Long quantity;
     // 商品价格
-    private Double price;
+    //以后涉及到钱的用BigDecimal
+    private BigDecimal price;
     private String sp1;
     private String sp2;
     private String sp3;
@@ -34,7 +35,7 @@ public class OmsCartItem implements Serializable{
     private String isChecked;
 
     @Transient
-    private Long totalPrice;
+    private BigDecimal totalPrice;
 
 
 
@@ -86,20 +87,20 @@ public class OmsCartItem implements Serializable{
         this.quantity = quantity;
     }
 
-    public Long getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Long totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getSp1() {

@@ -30,4 +30,8 @@ public class Constants {
     public static final String skuAttrValueList_valueId = "skuAttrValueList.valueId";
     public static final String skuAttrValueList_attrId = "skuAttrValueList.attrId";
 
+    //购物车
+    public static final String user = "user:";
+    public static final String cart = ":cart";
+
 }
