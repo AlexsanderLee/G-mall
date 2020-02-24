@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.neu.gmall.annotations.LoginRequired;
+import com.neu.gmall.bean.Constants;
 import com.neu.gmall.bean.OmsCartItem;
 import com.neu.gmall.bean.PmsSkuInfo;
 import com.neu.gmall.service.OmsCartService;
@@ -30,13 +31,25 @@ public class CartController {
     @Reference
     private OmsCartService omsCartService;
 
+    //交易界面
+    @RequestMapping("toTrade")
+    @LoginRequired(loginSuccess = true)
+    public String toTrade(HttpServletResponse response, HttpServletRequest request, ModelMap modelMap){
+        //使用强转，防止产生 null
+        String memberId = (String)request.getAttribute(Constants.memberId);
+        String nickname = (String)request.getAttribute(Constants.nickname);
+
+        return "toTrade";
+    }
+
 
 
     @RequestMapping("cartList")
     @LoginRequired(loginSuccess = false)
     public String cartList(HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest, ModelMap modelMap) {
         List<OmsCartItem> omsCartItemList = new ArrayList<>();
-        String memberId = "1";
+        String memberId = (String)httpServletRequest.getAttribute(Constants.memberId);
+
         if (StringUtils.isNotBlank(memberId)) {
             omsCartItemList = omsCartService.cartList(memberId);
         } else {
@@ -58,7 +71,8 @@ public class CartController {
     @RequestMapping("checkCart")
     @LoginRequired(loginSuccess = false)
     public String checkCart(String isChecked,String skuId,HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest, ModelMap modelMap) {
-        String memberId = "1";
+        String memberId = (String)httpServletRequest.getAttribute(Constants.memberId);
+
         //对购物车信息更新
         OmsCartItem omsCartItem = new OmsCartItem();
         omsCartItem.setIsChecked(isChecked);
@@ -91,7 +105,8 @@ public class CartController {
         buildCartItem(skuById, omsCartItem, quantity1);
 
         //判断用户是否登录
-        String memberId = "1";
+        String memberId = (String)httpServletRequest.getAttribute(Constants.memberId);
+
         if (StringUtils.isNotBlank(memberId)) {
             //登录使用DB+Redis
             //用户登录，查询购物车数据

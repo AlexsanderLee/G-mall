@@ -2,6 +2,7 @@ package com.neu.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.neu.gmall.bean.Constants;
 import com.neu.gmall.bean.*;
 import com.neu.gmall.manage.mapper.PmsSkuAttrValueMapper;
 import com.neu.gmall.manage.mapper.PmsSkuImageMapper;

@@ -1,4 +1,4 @@
-package com.neu.gmall.user;
+package com.neu.gmall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

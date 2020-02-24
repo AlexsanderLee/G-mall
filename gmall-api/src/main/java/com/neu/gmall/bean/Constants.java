@@ -8,6 +8,8 @@ import java.util.List;
 //常量类
 public class Constants {
 
+
+
     private Constants() {
     }
 
@@ -34,4 +36,12 @@ public class Constants {
     public static final String user = "user:";
     public static final String cart = ":cart";
 
+    public static final String password = "password";
+    public static final String token = ":token";
+    //统一认证
+    public static final String key = "gmall-wzy";
+    public static final String memberId = "memberId";
+    public static final String nickname = "nickname";
+
+    public static final String ip = "127.0.0.1";
 }

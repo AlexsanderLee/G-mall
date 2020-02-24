@@ -10,4 +10,8 @@ public interface UserService {
    List<UmsMember> getAllUser();
 
    List<UmsMemberReceiveAddress> getUmsMemberReceiveAddressById(String memberId);
+
+    UmsMember login(UmsMember umsMember);
+
+    void addUserToken(Long id, String token);
 }

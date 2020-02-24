@@ -7,7 +7,6 @@ import com.neu.gmall.bean.OmsCartItem;
 import com.neu.gmall.cart.mapper.OmsCartItemMapper;
 import com.neu.gmall.service.OmsCartService;
 import com.neu.gmall.util.RedisUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import tk.mybatis.mapper.entity.Example;
