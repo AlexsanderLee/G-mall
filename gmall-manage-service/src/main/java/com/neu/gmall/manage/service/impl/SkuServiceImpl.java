@@ -120,7 +120,7 @@ public class SkuServiceImpl implements SkuService {
         String key = Constants.sku + skuId + Constants.info;
         String skuJson = jedis.get(key);
         if(StringUtils.isBlank(skuJson)){
-            //设置分布式锁:锁key
+            //设置分布式锁:锁key,防止高并发访问
             String lockKey = Constants.sku+skuId+Constants.lock;
             String token = UUID.randomUUID().toString();
             String OK = jedis.set(lockKey, token,"nx","px",1000*10);

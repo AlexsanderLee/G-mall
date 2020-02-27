@@ -1,8 +1,9 @@
 package com.neu.gmall.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PmsComment {
+public class PmsComment implements Serializable {
     private Long id;
 
     private Long productId;

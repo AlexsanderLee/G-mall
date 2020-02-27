@@ -1,8 +1,9 @@
 package com.neu.gmall.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class OmsOrderItem {
+public class OmsOrderItem implements Serializable {
     private Long id;
 
     private Long orderId;

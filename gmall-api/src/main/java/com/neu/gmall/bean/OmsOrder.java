@@ -1,9 +1,14 @@
 package com.neu.gmall.bean;
 
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-public class OmsOrder {
+public class OmsOrder implements Serializable{
+    @Id
     private Long id;
 
     private Long memberId;
@@ -91,6 +96,17 @@ public class OmsOrder {
     private Date commentTime;
 
     private Date modifyTime;
+
+    @Transient
+    private List<OmsOrderItem> omsOrderItems;
+
+    public List<OmsOrderItem> getOmsOrderItems() {
+        return omsOrderItems;
+    }
+
+    public void setOmsOrderItems(List<OmsOrderItem> omsOrderItems) {
+        this.omsOrderItems = omsOrderItems;
+    }
 
     public Long getId() {
         return id;

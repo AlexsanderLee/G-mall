@@ -1,6 +1,6 @@
 package com.neu.gmall.bean;
 
-public class OmsCompanyAddress {
+public class OmsCompanyAddress implements Serializable{
     private Long id;
 
     private String addressName;

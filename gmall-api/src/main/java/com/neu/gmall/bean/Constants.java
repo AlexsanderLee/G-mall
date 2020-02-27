@@ -8,8 +8,6 @@ import java.util.List;
 //常量类
 public class Constants {
 
-
-
     private Constants() {
     }
 
@@ -44,4 +42,6 @@ public class Constants {
     public static final String nickname = "nickname";
 
     public static final String ip = "127.0.0.1";
+
+    public static final String tradeCode = ":tradeCode";
 }

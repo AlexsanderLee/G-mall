@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
         sb.append(Constants.user);
         //redis数据结构要改，此为偷懒的方法
         sb.append(umsMember.getPassword());
+        sb.append(umsMember.getUsername());
         sb.append(Constants.info);
         try {
             jedis= redisUtil.getJedis();
@@ -102,6 +103,14 @@ public class UserServiceImpl implements UserService {
             jedis.close();
         }
 
+    }
+
+    @Override
+    public List<UmsMemberReceiveAddress> getAddressById(String memberId) {
+        Example e = new Example(UmsMemberReceiveAddress.class);
+        e.createCriteria().andEqualTo("id",Long.parseLong(memberId));
+        List<UmsMemberReceiveAddress> addressList = umsMemberReceiveAddressMapper.selectByExample(e);
+        return addressList;
     }
 
     private UmsMember loginFromDB(UmsMember umsMember) {
