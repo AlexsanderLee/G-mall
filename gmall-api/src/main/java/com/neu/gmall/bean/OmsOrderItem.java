@@ -22,7 +22,7 @@ public class OmsOrderItem implements Serializable {
 
     private BigDecimal productPrice;
 
-    private Integer productQuantity;
+    private Long productQuantity;
 
     private Long productSkuId;
 
@@ -124,11 +124,11 @@ public class OmsOrderItem implements Serializable {
         this.productPrice = productPrice;
     }
 
-    public Integer getProductQuantity() {
+    public Long getProductQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(Integer productQuantity) {
+    public void setProductQuantity(Long productQuantity) {
         this.productQuantity = productQuantity;
     }
 

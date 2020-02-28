@@ -113,6 +113,14 @@ public class UserServiceImpl implements UserService {
         return addressList;
     }
 
+    @Override
+    public UmsMemberReceiveAddress getReceiveAddressById(String receiveAddressId) {
+        UmsMemberReceiveAddress umsMemberReceiveAddress = new UmsMemberReceiveAddress();
+        umsMemberReceiveAddress.setId(Long.parseLong(receiveAddressId));
+        UmsMemberReceiveAddress umsMemberReceiveAddress1 = umsMemberReceiveAddressMapper.selectOne(umsMemberReceiveAddress);
+        return umsMemberReceiveAddress1;
+    }
+
     private UmsMember loginFromDB(UmsMember umsMember) {
         Example e = new Example(UmsMember.class);
         e.createCriteria().andEqualTo("username",umsMember.getUsername()).andEqualTo("password",umsMember.getPassword());

@@ -1,9 +1,10 @@
 package com.neu.gmall.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class PaymentInfo implements Serializable{
+public class PaymentInfo implements Serializable {
     private Long id;
 
     private String orderSn;

@@ -47,6 +47,7 @@ public class PassportController {
         return JSON.toJSONString(map);
     }
 
+    //登录后需要同步购物车
     @RequestMapping("login")
     @ResponseBody
     public String login(UmsMember  umsMember, HttpServletRequest request){
@@ -84,7 +85,7 @@ public class PassportController {
 
     //ReturnUrl：名称要与html表单中一致
     @RequestMapping("index")
-    public String index(String ReturnUrl, ModelMap modelMap){
+    public String index(String ReturnUrl,ModelMap modelMap){
 
         if(StringUtils.isNotBlank(ReturnUrl))
             modelMap.put("ReturnUrl",ReturnUrl);

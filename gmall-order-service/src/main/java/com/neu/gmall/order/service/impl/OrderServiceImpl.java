@@ -1,18 +1,31 @@
 package com.neu.gmall.order.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.neu.gmall.bean.Constants;
+import com.neu.gmall.bean.OmsOrder;
+import com.neu.gmall.bean.OmsOrderItem;
+import com.neu.gmall.order.mapper.OmsOrderItemMapper;
+import com.neu.gmall.order.mapper.OmsOrderMapper;
 import com.neu.gmall.service.OrderService;
 import com.neu.gmall.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Collections;
 import java.util.UUID;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private OmsOrderMapper omsOrderMapper;
+
+    @Autowired
+    private OmsOrderItemMapper omsOrderItemMapper;
 
     @Override
     public String genTradeCode(String memberId) {
@@ -52,5 +65,25 @@ public class OrderServiceImpl implements OrderService {
             jedis.close();
         }
         return false;
+    }
+
+    @Override
+    public void saveOrder(OmsOrder omsOrder) {
+        omsOrderMapper.insertSelective(omsOrder);
+        Long id = omsOrder.getId();
+        for(OmsOrderItem omsOrderItem:omsOrder.getOmsOrderItems()){
+            omsOrderItem.setOrderId(id);
+            omsOrderItemMapper.insertSelective(omsOrderItem);
+            //删除购物车数据,重复测试，不实现
+            //cartService.delCart(omsOrderItem.getProductId())
+        }
+    }
+
+    @Override
+    public OmsOrder getOrderByOutTradeNo(String outTradeNo) {
+        Example e =new Example(OmsOrder.class);
+        e.createCriteria().andEqualTo("orderSn",outTradeNo);
+        OmsOrder omsOrder = omsOrderMapper.selectOneByExample(e);
+        return omsOrder;
     }
 }

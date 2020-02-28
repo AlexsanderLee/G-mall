@@ -13,8 +13,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import com.neu.gmall.util.RedisUtil;
+import tk.mybatis.mapper.entity.Example;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -171,6 +173,17 @@ public class SkuServiceImpl implements SkuService {
 
         }
         return pmsSkuInfoList;
+    }
+
+    @Override
+    public boolean checkPrice(Long productSkuId, BigDecimal price) {
+        Example e = new Example(PmsSkuInfo.class);
+        e.createCriteria().andEqualTo("id",productSkuId);
+        PmsSkuInfo pmsSkuInfo = pmsSkuInfoMapper.selectOneByExample(e);
+        if(pmsSkuInfo.getPrice().compareTo(price)==0){
+            return true;
+        }
+        return false;
     }
 
 
