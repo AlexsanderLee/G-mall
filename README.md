@@ -60,4 +60,5 @@ Mybatis、mysql、redis
 
 9、开发登陆模块，拦截器、cookies、returnURL、redis。
 
-10、开发order模块。
+10、开发order和支付模块。
+
